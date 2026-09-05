@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05040b">
+<meta name="description" content="AROURA — Music becomes light. An independent music experience by Helupack Systems.">
+<title>AROURA — Music becomes light</title>
+<link rel="icon" href="assets/images/logo.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="ambient"></div>
+<header class="topbar">
+  <button class="mobile-brand" onclick="showPage('home')"><img src="assets/images/logo.svg"> AROURA</button>
+  <div class="top-actions">
+    <button class="icon-btn" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+    <button class="profile-btn" onclick="openModal('profile')">P</button>
+  </div>
+</header>
+
+<div class="app-shell">
+<aside class="sidebar">
+  <a class="brand" href="#" onclick="showPage('home');return false">
+    <img src="assets/images/logo.svg" alt=""><span>AROURA</span>
+  </a>
+  <div class="brand-tag">MUSIC BECOMES LIGHT.</div>
+  <nav>
+    <button class="nav active" data-page="home"><span>⌂</span> Home</button>
+    <button class="nav" data-page="search"><span>⌕</span> Search</button>
+    <button class="nav" data-page="library"><span>♫</span> Your Library</button>
+    <button class="nav" data-page="premium"><span>✦</span> Premium</button>
+  </nav>
+  <div class="sidebar-bottom">
+    <button class="text-btn" onclick="openModal('about')">About AROURA</button>
+    <small>A product of <b>Helupack Systems</b></small>
+  </div>
+</aside>
+
+<main>
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><i></i> THE NORTHERN COLLECTION</div>
+      <h1>Music<br><em>becomes light.</em></h1>
+      <p>Put on your headphones. Let the sound move. Watch the night respond.</p>
+      <div class="hero-actions">
+        <button class="primary" onclick="playTrack(0)">▶ Play Aurora</button>
+        <button class="ghost" onclick="showPage('search')">Explore sounds</button>
+      </div>
+      <div class="hero-note"><span>✦</span> Live Northern Lights visualizer</div>
+    </div>
+    <div class="hero-stage" aria-label="Northern Lights visualizer">
+      <div class="stars"></div>
+      <div class="aurora-ribbon r1"></div><div class="aurora-ribbon r2"></div><div class="aurora-ribbon r3"></div>
+      <div class="orb"></div>
+      <div class="stage-label"><b>AROURA</b><span>THE NIGHT HAS A SOUND</span></div>
+    </div>
+  </div>
+
+  <div class="section-head"><div><span class="eyebrow">CURATED FOR YOU</span><h2>Made for your night</h2></div><button class="link-btn" onclick="showPage('library')">See all →</button></div>
+  <div class="cards" id="featured"></div>
+
+  <div class="section-head"><div><span class="eyebrow">DISCOVER</span><h2>Trending now</h2></div></div>
+  <div class="track-list" id="trending"></div>
+</section>
+
+<section id="search" class="page">
+  <div class="page-title"><span class="eyebrow">DISCOVER</span><h1>Find your sound.</h1><p>Search your AROURA collection by song, artist or album.</p></div>
+  <div class="search-wrap"><span>⌕</span><input id="searchInput" placeholder="Search songs, artists, albums…" oninput="renderSearch()"></div>
+  <div id="searchResults" class="track-list"></div>
+</section>
+
+<section id="library" class="page">
+  <div class="page-title"><span class="eyebrow">YOUR SPACE</span><h1>Your Library</h1><p>Your listening space, saved locally on this device.</p></div>
+  <div class="library-tabs">
+    <button class="tab active" onclick="setLibraryTab(this,'all')">All songs</button>
+    <button class="tab" onclick="setLibraryTab(this,'liked')">Liked</button>
+    <button class="tab" onclick="setLibraryTab(this,'playlist')">Playlists</button>
+  </div>
+  <div id="libraryList" class="track-list"></div>
+</section>
+
+<section id="premium" class="page">
+  <div class="premium-hero">
+    <div>
+      <span class="eyebrow">AROURA PREMIUM</span>
+      <h1>Own the night.</h1>
+      <p>Ad-free listening, higher-quality audio, unlimited skips and the full Northern Lights player experience.</p>
+      <div class="price">KES <strong>299</strong><span>/ month</span></div>
+      <button class="primary" onclick="openModal('payment')">Upgrade with M-PESA →</button>
+      <small class="safe-note">Secure payment flow. Your M-PESA PIN is entered only on Safaricom.</small>
+    </div>
+    <div class="premium-art"><div class="mini-aurora a"></div><div class="mini-aurora b"></div><div class="mini-aurora c"></div></div>
+  </div>
+  <div class="perks">
+    <div><span>✦</span><b>Ad-free</b><small>Pure listening, uninterrupted.</small></div>
+    <div><span>↯</span><b>Unlimited skips</b><small>Move through your night freely.</small></div>
+    <div><span>◉</span><b>Higher quality</b><small>Hear every detail.</small></div>
+    <div><span>◌</span><b>Night mode</b><small>Built around the aurora.</small></div>
+  </div>
+</section>
+</main>
+</div>
+
+<div class="mobile-nav">
+  <button onclick="showPage('home')">⌂<small>Home</small></button>
+  <button onclick="showPage('search')">⌕<small>Search</small></button>
+  <button onclick="showPage('library')">♫<small>Library</small></button>
+  <button onclick="showPage('premium')">✦<small>Premium</small></button>
+</div>
+
+<div class="player" id="player">
+  <div class="player-glow"></div>
+  <div class="now">
+    <img id="nowCover" src="assets/images/dawn.svg" alt="">
+    <div><b id="nowTitle">Aurora Dawn</b><span id="nowArtist">AROURA Originals</span></div>
+  </div>
+  <div class="controls">
+    <button onclick="prevTrack()">↶</button>
+    <button class="play" id="playBtn" onclick="togglePlay()">▶</button>
+    <button onclick="nextTrack()">↷</button>
+    <button onclick="toggleLike()" id="likeBtn">♡</button>
+  </div>
+  <div class="progress"><span id="current">0:00</span><input id="seek" type="range" min="0" max="100" value="0"><span id="duration">0:00</span></div>
+  <button class="expand" onclick="openModal('player')">⛶</button>
+  <audio id="audio" preload="metadata"></audio>
+</div>
+
+<div class="modal-wrap" id="modalWrap" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
